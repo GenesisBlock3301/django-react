@@ -1,4 +1,4 @@
-# Leadmanager-rest-react
+# Rest-react
 
 ## Project setup:
 ```
