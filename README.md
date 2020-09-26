@@ -6,6 +6,7 @@ pip install django
 pip install djangorestframework
 django-admin startproject leadmanager
 python manage.py app_name
+pip install coresheaders
 
 ```
 
