@@ -22,6 +22,14 @@ export const authFail = (error)=>{
   }
 };
 
+
+const checkAuthTimeout=(expirationTime)=>{
+    return dispatch=>{
+        setTimeout(()=>{
+            dispatch(logout())
+        },expirationTime*1000)
+    }
+};
 export const authLogin = (username,password)=>{
   return dispatch =>{
       dispatch(authStart());
@@ -29,5 +37,13 @@ export const authLogin = (username,password)=>{
           username: username,
           password: password,
       })
+          .then(resp=>{
+              const token = resp.data.key;
+              const expirationDate = new Date().getTime()+3600*1000;
+              localStorage.setItem('token',token);
+              localStorage.setItem('expirationDate',expirationDate);
+              dispatch(authSuccess(token));
+              dispatch(checkAuthTimeout(3600))
+          })
   }
 };
