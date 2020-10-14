@@ -26,8 +26,7 @@ export const logout=()=>{
     localStorage.removeItem('user');
     localStorage.removeItem('expirationDate');
     return{
-        type:actionTypes.AUTH_SUCCESS,
-        token:token
+        type:actionTypes.AUTH_LOGOUT,
     }
 };
 
@@ -48,7 +47,7 @@ export const authLogin = (username,password)=>{
       })
           .then(resp=>{
               const token = resp.data.key;
-              const expirationDate = new Date().getTime()+3600*1000;
+              const expirationDate = new Date(new Date().getTime()+3600*1000);
               localStorage.setItem('token',token);
               localStorage.setItem('expirationDate',expirationDate);
               dispatch(authSuccess(token));
@@ -60,7 +59,7 @@ export const authLogin = (username,password)=>{
   }
 };
 
-export const authSignup = (username,password1,password2)=>{
+export const authSignup = (username,email,password1,password2)=>{
   return dispatch =>{
       dispatch(authStart());
       axios.post('http://127.0.0.1:8000/api/rest-auth/registration/',{
@@ -82,3 +81,15 @@ export const authSignup = (username,password1,password2)=>{
           })
   }
 };
+
+export const authCheckState = ()=>{
+    return dispatch=>{
+        const token = localStorage.setItem('token')
+        if (token === undefined){
+            dispatch(logout())
+        }else {
+            // con
+        }
+
+    }
+}
