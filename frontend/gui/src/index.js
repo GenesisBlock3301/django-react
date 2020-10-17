@@ -23,6 +23,6 @@ const app = (
 )
 
 ReactDOM.render(
-    App , document.getElementById('root')
+    app , document.getElementById('root')
 );
 serviceWorker.unregister();
